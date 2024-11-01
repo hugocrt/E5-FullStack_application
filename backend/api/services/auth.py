@@ -47,7 +47,7 @@ def generate_access_token(
     return _encode_jwt(user)
 
 
-def verify_autorization_header(access_token: str):
+def verify_authorization_header(access_token: str):
     if not access_token or not access_token.startswith("Bearer "):
         raise HTTPException(status_code=401, detail="No auth provided.")
 

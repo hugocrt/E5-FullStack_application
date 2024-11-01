@@ -1,0 +1,16 @@
+.custom-menubar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.custom-menubar .p-menuitem-link {
+    color: inherit;
+    text-decoration: none;
+    align-items: center;
+}
+
+.p-menubar-root-list {
+    margin: 0;
+}
+

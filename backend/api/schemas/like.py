@@ -8,4 +8,4 @@ class Like(BaseModel):
     created_at: datetime
 
     class Config:
-        orm_mode = True
+        from_attributes = True

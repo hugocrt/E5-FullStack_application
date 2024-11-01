@@ -1,4 +1,4 @@
-from sqlalchemy.orm import Session
+from sqlalchemy.orm import Session, joinedload
 from fastapi import HTTPException
 
 from uuid import UUID, uuid4
@@ -46,7 +46,12 @@ def update_comment(db: Session, comment_id: UUID, comment_data: schemas.CommentU
 
 
 def get_comments_for_post(db: Session, post_id: UUID) -> list[schemas.Comment]:
-    return db.query(models.Comment).filter(models.Comment.post_id == post_id).all()
+    return (
+        db.query(models.Comment)
+        .options(joinedload(models.Comment.user))
+        .filter(models.Comment.post_id == post_id)
+        .all()
+    )
 
 
 def get_comment(db: Session, comment_id: UUID) -> schemas.Comment:

@@ -6,7 +6,7 @@ class Post(BaseSQL):
 
     id = Column(UUID(as_uuid=True), primary_key=True, index=True)
     title = Column(String)
-    picture = Column(LargeBinary, nullable=True)
+    picture = Column(String, nullable=True)
     text = Column(String, nullable=True)
     created_at = Column(DateTime, default=datetime.now)
     updated_at = Column(DateTime, default=datetime.now, onupdate=datetime.now)

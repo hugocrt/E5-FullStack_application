@@ -1,7 +1,8 @@
-from typing import List
+from typing import List, Tuple
 from uuid import uuid4
 
 from sqlalchemy.orm import Session
+from sqlalchemy import desc
 from fastapi import HTTPException
 from datetime import datetime
 import models, schemas
@@ -12,6 +13,37 @@ def get_all_posts(db: Session, skip: int = 0, limit: int = 10) -> List[models.Po
     for record in records:
         record.id = str(record.id)
     return records
+
+
+def get_followed_posts(db: Session, user_id: str, skip: int = 0, limit: int = 10) -> Tuple[List[models.Post], int]:
+    following_users = (
+        db.query(models.User)
+        .join(models.followers_association, models.followers_association.c.followed_id == models.User.id)
+        .filter(models.followers_association.c.follower_id == user_id)
+        .all()
+    )
+
+    following_user_ids = [user.id for user in following_users]
+
+    total_posts_count = (
+        db.query(models.Post)
+        .filter(models.Post.owner_id.in_(following_user_ids))
+        .count()
+    )
+
+    followed_posts = (
+        db.query(models.Post)
+        .filter(models.Post.owner_id.in_(following_user_ids))
+        .order_by(desc(models.Post.created_at))
+        .offset(skip)
+        .limit(limit)
+        .all()
+    )
+
+    if not followed_posts:
+        raise HTTPException(status_code=404, detail="No followed posts")
+
+    return followed_posts, total_posts_count
 
 
 def get_post_by_id(post_id: str, db: Session) -> models.Post:
@@ -38,6 +70,12 @@ def update_post(post_id: str, db: Session, post: schemas.PostUpdate) -> models.P
 
 def delete_post(post_id: str, db: Session) -> models.Post:
     db_post = get_post_by_id(post_id=post_id, db=db)
+    for comment in db_post.comments:
+        db.delete(comment)
+        db.commit()
+    for like in db_post.likes:
+        db.delete(like)
+        db.commit()
     db.delete(db_post)
     db.commit()
     return db_post

@@ -1,11 +1,13 @@
-from typing import List
+from typing import List, Tuple
 from uuid import uuid4
 from fastapi import HTTPException
 from sqlalchemy.orm import Session
 from starlette.status import HTTP_401_UNAUTHORIZED
+import jwt
+from jwt import InvalidTokenError
 
 import models
-from schemas import User, UserCredentials, UserUpdate
+from schemas import User, UserCredentials, UserUpdate, UserOut
 from services.auth import JWT_SECRET_KEY, JWT_SECRET_ALGORITHM, hash_password, verify_password
 
 
@@ -28,7 +30,7 @@ def get_user_profile(user_id: str, db: Session):
     followers_count = get_user_followers_count(db, user_id=user.id)
     following_count = get_user_following_count(db, user_id=user.id)
 
-    posts = db.query(models.Post).filter(models.Post.user_id == user.id).all()
+    posts = db.query(models.Post).filter(models.Post.owner_id == user.id).all()
 
     return {
         "username": user.username,
@@ -58,14 +60,17 @@ def create_user(db: Session, user: UserCredentials) -> models.User:
     return db_user
 
 
-def delete_own_account(db: Session, current_user_id: str, password: str) -> models.User:
+def delete_own_account(db: Session, current_user_id: str, password: str) -> UserOut:
     user = db.query(models.User).filter(models.User.id == current_user_id).first()
-
     if not user:
         raise HTTPException(status_code=404, detail="User not found!")
 
     if not verify_password(password, user.password):
         raise HTTPException(status_code=HTTP_401_UNAUTHORIZED, detail="Incorrect password!")
+
+    for post in user.posts:
+        db.delete(post)
+        db.commit()
 
     db.delete(user)
     db.commit()
@@ -120,13 +125,30 @@ def get_user_following(db: Session, user_id: str, skip: int = 0, limit: int = 10
     return following_query.all()
 
 
-def search(db: Session, query: str):
+def search(db: Session, query: str, skip: int, limit: int):
     try:
-        users = db.query(models.User).filter(models.User.username.ilike(f'%{query}%')).all()
+        users = db.query(models.User).filter(models.User.username.ilike(f'%{query}%')).offset(skip).limit(limit)
+
         if not users:
             raise HTTPException(status_code=404, detail="No users found")
 
-        return users
+        user_data = []
+        for user in users:
+            followers_count = get_user_followers_count(db, user_id=user.id)
+            user_data.append({
+                "id": user.id,
+                "username": user.username,
+                "profile_picture": user.profile_picture,
+                "followers_count": followers_count
+            })
+
+        total_users = (
+            db.query(models.User)
+            .filter(models.User.username.ilike(f'%{query}%'))
+            .count()
+        )
+
+        return user_data, total_users
 
     except ValueError:
         raise HTTPException(status_code=400, detail="Invalid query format")

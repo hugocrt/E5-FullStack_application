@@ -8,7 +8,7 @@ class User(BaseModel):
     username: str
     password: str
 
-    profile_picture: Optional[bytes]
+    profile_picture: Optional[str]
     bio: Optional[str] = None
     posts: List['Post'] = []
 
@@ -21,7 +21,7 @@ class User(BaseModel):
     updated_at: Annotated[datetime, Field(default_factory=datetime.now)]
 
     class Config:
-        orm_mode = True
+        from_attributes = True
 
 
 class UserCredentials(BaseModel):
@@ -29,15 +29,31 @@ class UserCredentials(BaseModel):
     password: str
 
     class Config:
-        orm_mode = True
+        from_attributes = True
 
 
 class UserUpdate(BaseModel):
     username: Optional[str] = None
     password: Optional[str] = None
     bio: Optional[str] = None
-    profile_picture: Optional[bytes] = None
+    profile_picture: Optional[str] = None
 
     class Config:
-        orm_mode = True
-        
+        from_attributes = True
+
+
+class UserBase(BaseModel):
+    id: UUID
+    username: str
+    bio: Optional[str] = None
+    profile_picture: Optional[str] = None
+
+    class Config:
+        orm_mode = from_attributes = True
+
+
+class UserOut(UserBase):
+    created_at: datetime
+    updated_at: datetime
+    followers: List[UserBase] = []
+    following: List[UserBase] = []

@@ -14,7 +14,7 @@ class User(BaseSQL):
 
     username = Column(String, unique=True, index=True, nullable=False)
     password = Column(String, nullable=False)
-    profile_picture = Column(LargeBinary, nullable=True)
+    profile_picture = Column(String, nullable=True)
     bio = Column(String, nullable=True)
 
     created_at = Column(DateTime, default=datetime.now)

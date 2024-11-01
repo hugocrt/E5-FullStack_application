@@ -5,7 +5,7 @@ from .comment import Comment
 class Post(BaseModel):
     id: UUID = Field(default_factory=uuid4)
     title: str
-    picture: Optional[bytes]
+    picture: Optional[str]
     text: Optional[str] = None
 
     owner_id: UUID
@@ -16,16 +16,16 @@ class Post(BaseModel):
     updated_at: Annotated[datetime, Field(default_factory=datetime.now)]
 
     class Config:
-        orm_mode = True
+        from_attributes = True
 
 
 class PostBlueprint(BaseModel):
     title: str
-    picture: Optional[bytes] = None
+    picture: Optional[str] = None
     text: Optional[str] = None
 
     class Config:
-        orm_mode = True
+        from_attributes = True
 
 
 class PostUpdate(BaseModel):
@@ -34,4 +34,4 @@ class PostUpdate(BaseModel):
     text: Optional[str] = None
 
     class Config:
-        orm_mode = True
+        from_attributes = True
