@@ -46,7 +46,7 @@ const ProfilePage: React.FC = () => {
             const currentUsername = sessionStorage.getItem('username');
 
             if (currentUsername && user_followers) {
-                const isFollowing = user_followers.some(follower => follower.username === currentUsername);
+                const isFollowing = user_followers.some((follower: User) => follower.username === currentUsername);
                 setIsFollowing(isFollowing);
             }
         } catch (error) {

@@ -7,7 +7,7 @@ export const Footer: React.FC = () => {
             <div className="container text-center">
                 <div className="row align-items-center">
                     <div className="col">
-                        <img src="../../public/ESIEE_Paris_BLANC.png" alt="Logo ESIEE PARIS" width='30%' height='30%'/>
+                        <img src="/ESIEE_Paris_BLANC.png" alt="Logo ESIEE PARIS" width='30%' height='30%'/>
                     </div>
                     <div className="col text-center">
                         <small>

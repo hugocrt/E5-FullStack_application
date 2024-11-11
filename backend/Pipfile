@@ -11,7 +11,10 @@ fastapi = "*"
 uvicorn = "*"
 sqlalchemy = "*"
 pydantic = "*"
-python-keycloak = "*"
+psycopg2-binary = "*"
+python-dotenv = "*"
+PyJWT = "*"
+passlib = "*"
 
 [requires]
-python_version = "3.9"
+python_version = "3.12"

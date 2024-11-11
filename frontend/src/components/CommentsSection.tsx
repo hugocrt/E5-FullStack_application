@@ -97,9 +97,6 @@ const CommentsSection: React.FC<CommentsSectionProps> = ({ postId, current_user_
                         <div key={comment.id} className="mb-2 p-2 rounded bg-light">
                             <div className="d-flex justify-content-between">
                                 <p className="m-0 text-dark">@{comment.user.username}</p>
-                                <small className="font-light font-italic">
-                                    {new Date(comment.created_at).toLocaleString()} Local UTC
-                                </small>
                             </div>
                             <p className="mt-1 ms-3 p-0 m-0 text-secondary font-light">{comment.content}</p>
                             {comment.user_id === current_user_id ? (

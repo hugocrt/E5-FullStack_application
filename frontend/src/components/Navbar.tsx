@@ -70,7 +70,7 @@ export default function Navbar() {
         }
     ];
 
-    const start = <img alt="logo" src="../../public/file.png" height="50" className="ml-5" />;
+    const start = <img alt="logo" src="/file.png" height="50" className="ml-5" />;
 
     const handleSearch = () => {
         if (searchQuery.trim()) {

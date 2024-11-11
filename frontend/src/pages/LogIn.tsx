@@ -52,7 +52,7 @@ const LogInPage: React.FC = () => {
                     </h1>
                     <div className="container mt-5">
                         <div className="container mt-5 d-flex justify-content-center">
-                            <img src="../../public/file.png" alt="FREE RIGHTS LOGO" width="125" height="125"/>
+                            <img src="/file.png" alt="FREE RIGHTS LOGO" width="125" height="125"/>
                         </div>
                         <div className="row">
                             <div className="col-12 col-sm-8 col-md-6 m-auto">

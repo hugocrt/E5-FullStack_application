@@ -1,5 +1,5 @@
 FROM python:3.12.7
-WORKDIR /app
+WORKDIR /backend
 
 # Installer pipenv
 RUN pip install pipenv
@@ -11,6 +11,8 @@ COPY Pipfile Pipfile.lock ./
 RUN pipenv install --system --deploy
 
 # Copier le reste de l'application
-COPY . /app
+COPY . /backend
 
-CMD ["uvicorn", "api.main:app", "--host", "0.0.0.0", "--port", "5000"]
+ENV PYTHONPATH="/backend"
+
+CMD ["python", "api/main.py"]
