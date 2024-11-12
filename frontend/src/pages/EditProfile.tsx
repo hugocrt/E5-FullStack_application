@@ -104,7 +104,7 @@ const EditProfile: React.FC = () => {
                         <FileUpload
                             name="post_image"
                             accept="image/*"
-                            maxFileSize={1000000} // 1 MB
+                            maxFileSize={10000000} // 10 MB
                             emptyTemplate={<p className="m-0">Drag and drop files to here to upload.</p>}
                             onSelect={handleProfilePictureChange}
                         />
