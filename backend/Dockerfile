@@ -10,7 +10,6 @@ COPY Pipfile Pipfile.lock ./
 # Installer les dépendances avec pipenv
 RUN pipenv install --system --deploy
 
-# Copier le reste de l'application
 COPY . /backend
 
 ENV PYTHONPATH="/backend"

@@ -8,15 +8,17 @@ Il y a des balises html dans ce fichier, s'il y a un problème d'affichage, essa
 <div style="text-align: center;">
 <img src="images/banner.png" alt="banner" style="horiz-align: center;"></div>
 
-![Static Badge](https://img.shields.io/badge/ESIEE%20Paris%20-%20Projet%20E5%20-%20lightblue?style=flat)
+![Static Badge](https://img.shields.io/badge/ESIEE%20Paris%20-%20Projet%20E5%20-%20orangered?style=flat)
 ![GitHub last commit](https://img.shields.io/github/last-commit/hugocrt/E5-FullStack_application)
 ![GitHub repo size](https://img.shields.io/github/repo-size/hugocrt/E5-FullStack_application)
 ![GitHub watchers](https://img.shields.io/github/watchers/hugocrt/E5-FullStack_application)
 
 ### 🛠 Outils : 
-| **Backend**                                                                                                                                                                                                                                                                                                                 | **Frontend**                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                       | **Full Stack**                                                 |
-|-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|----------------------------------------------------------------|
-| - <img src="images/python.svg" alt="python" style="height: 1em; vertical-align: middle;"> Python <br> - <img src="images/fastapi.svg" alt="fastapi" style="height: 1em; vertical-align: middle;"> FastAPI <br> - <img src="images/postgresql.svg" alt="postgresql" style="height: 1em; vertical-align: middle;"> PostgreSQL | - <img src="images/typescript.svg" alt="typescript" style="height: 1em; vertical-align: middle;"> TypeScript <br> - <img src="images/react.svg" alt="react" style="height: 1em; vertical-align: middle;"> React + <img src="images/vitejs.svg" alt="vitejs" style="height: 1em; vertical-align: middle;"> Vite <br> - <img src="images/primereact.svg" alt="primereact" style="height: 1em; vertical-align: middle;"> PrimeReact + <img src="images/bootstrap.svg" alt="bootstrap" style="height: 1em; vertical-align: middle;"> Bootstrap + <img src="images/css.svg" alt="css" style="height: 1em; vertical-align: middle;"> CSS | <img src="images/docker.svg" alt="docker" style="height: 1em; vertical-align: middle;"> Docker |
+| **Backend**                                                                                                | **Frontend**                                                                                                                                                                                                                                                                                                 | **Full Stack**                                                                                 |
+|------------------------------------------------------------------------------------------------------------|--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|------------------------------------------------------------------------------------------------|
+| <img src="images/python.svg" alt="python" style="height: 1em; vertical-align: middle;"> Python             | <img src="images/typescript.svg" alt="typescript" style="height: 1em; vertical-align: middle;"> TypeScript                                                                                                                                                                                                   | <img src="images/docker.svg" alt="docker" style="height: 1em; vertical-align: middle;"> Docker |
+| <img src="images/fastapi.svg" alt="fastapi" style="height: 1em; vertical-align: middle;"> FastAPI          | <img src="images/react.svg" alt="react" style="height: 1em; vertical-align: middle;"> React + <img src="images/vitejs.svg" alt="vitejs" style="height: 1em; vertical-align: middle;"> Vite                                                                                                                   |                                                                                                |
+| <img src="images/postgresql.svg" alt="postgresql" style="height: 1em; vertical-align: middle;"> PostgreSQL | <img src="images/primereact.svg" alt="primereact" style="height: 1em; vertical-align: middle;"> PrimeReact + <img src="images/bootstrap.svg" alt="bootstrap" style="height: 1em; vertical-align: middle;"> Bootstrap + <img src="images/css.svg" alt="css" style="height: 1em; vertical-align: middle;"> CSS |                                                                                                |
 
 ### ☲ Description
 Ce projet, réalisé dans le cadre de la matière de 5e année **Fullstack Data**, simule un **réseau social**. Le backend 
@@ -42,14 +44,10 @@ accent particulier sur la gestion des données, la conception d'API sécurisée 
 4) [Utiliser l'application Web](#4---utiliser-lapplication-web)
 
 ### Guide du développeur
-1) [Logique du projet](#1-logique-du-projet) 
-    - [Structure du projet](#structure-du-projet)
-    - [D'un point de vue global](#dun-point-de-vue-global)
-    - [D'un point de vue plus approfondi](#dun-point-de-vue-plus-approfondi)
-        - [Gestion des packages Python](#gestion-des-packages-python)
-        - [Conception de deux images Docker](#conception-de-deux-images-docker)
-        - [Codes Python](#codes-python)
-3) [Continuer le projet](#3---continuer-le-projet)
+1) [Aperçu global](#1---aperçu-global) 
+2) [Backend](#2---backend) 
+3) [Frontend](#3---frontend)
+4) [Continuer le projet](#4---continuer-le-projet)
 
 ### Contexte et Retours d'expérience
 1) [Pourquoi ce projet](#1-logique-du-projet) 
@@ -117,7 +115,7 @@ Une fois le service **frontend** en vert, vous pouvez cliquer sur le port soulig
 
 ### 4 - Utiliser l'application Web
 
-⚠ Premièrement, il est important de noter que l'on utilise une **base de donnée localement**. Par conséquent, vous n'aurez **aucune
+⚠ Premièrement, il est important de noter que l'on utilise une **base de donnée locale**. Par conséquent, vous n'aurez **aucune
 donnée pré-enregistrée** lors de votre arrivée sur le réseau social.
 Vous pouvez simuler une utilisation en créant plusieurs comptes.
 Si vous fermez docker, les données ne seront pas enregistrées (pas d'utilisation de volume).
@@ -181,7 +179,152 @@ vous permettent de garder votre profil à jour et en adéquation avec vos préf�
 
 ## Guide du développeur
 
-**<a href="http://localhost:5000/docs">lien FastAPI docs<a/>**
+### 1 - Aperçu global
+
+Nous avons développé une application **Full Stack** – c’est-à-dire une application qui comprend une partie **backend** (le
+serveur) et une partie **frontend** (l'interface utilisateur). Ce type d’architecture permet de séparer les fonctionnalités
+de gestion des données et de traitement en arrière-plan des fonctionnalités d’affichage et d'interaction côté
+utilisateur ce qui est une approche moderne.
+
+Le projet sera donc structuré en deux grands dossiers : **backend** et **frontend** pour un code modulaire et organisé.
+
+###### Backend
+
+Le backend de notre application est une API (Application Programming Interface). Concrètement, l’API expose des endpoints qui
+permettent de gérer des opérations CRUD (Create, Read, Update, Delete) sur les données (user, post, comment, like). Nous avons réalisé l'API à 
+l'aide de FastAPI en Python, qui est un framework rapide et récent pour créer des APIs web.
+
+Dans notre cas, il s’agit d’une **API RESTful** pour un réseau social, ce qui signifie que les **endpoints** doivent être
+sécurisés pour protéger les données personnelles des utilisateurs. Nous avons mis en place cette sécurité grâce à **HTTP
+Bearer** (fourni par FastAPI) et aux **tokens JWT** (JSON Web Tokens). Ces tokens permettent de vérifier l’authenticité de
+l’utilisateur lors de chaque requête en ne se connectant qu'une seule fois, améliorant ainsi la sécurité et l'UX. Il existe d'autres méthodes de sécurisation, comme l'utilisation de cookies ou de
+services tiers (par exemple **Keycloak** pour la gestion des identités et des accès). Nous avons cependant privilégié HTTP
+Bearer et JWT pour leur simplicité et la rapidité de leur implémentation.
+
+En termes de sécurité, d'autres améliorations pourraient être apportées. Par exemple, déployer l’application avec le
+protocole **HTTPS** garantirait que les identifiants et mots de passe ne soient pas envoyés en clair, limitant ainsi le
+risque d’interception. Nous avons néanmoins sécurisé les mots de passe en les hachant et en les salant dans la base de
+données avec le module **CryptContext** de **passlib.context**. De plus, il est important de noter que le stockage de l'ID de
+session **SSO** dans le stockage de session du navigateur est un point faible potentiel, car des attaquants pourraient
+récupérer cet ID en cas de **faille XSS**.
+
+###### Database
+
+Pour le stockage des données et les opérations de gestion de celles-ci, nous avons utilisé une **base de données SQL**,
+**PostgreSQL**. Bien que PostgreSQL soit très performant, nous avons rencontré quelques difficultés comparées à une base
+**NoSQL** comme **MongoDB**. Par exemple, pour stocker des images, nous avons utilisé le format **base64** dans la base de données,
+bien que cela ne soit pas optimal en raison de la taille des données. L'utilisation de services externes comme
+**Cloudinary** aurait été une meilleure option, mais nous avons préféré ne pas intégrer d’API key externe dans notre code
+pour des raisons de sécurité et de partage.
+
+###### Frontend
+
+Le frontend a été développé avec **React** et **Vite** en **TypeScript** pour une expérience utilisateur réactive et performante.
+Nous avons utilisé **PrimeReact** et **Bootstrap** pour concevoir une interface utilisateur moderne et réactive, tout en
+réduisant le temps de développement. La création d'une interface utilisateur est un domaine complexe qui nécessite des
+compétences spécifiques, et nous avons donc privilégié ces frameworks pour accélérer le processus et ne pas réinventer la roue.
+
+Pour les appels API, nous avons utilisé **Axios**, une bibliothèque JavaScript permettant de gérer les requêtes HTTP de
+manière **asynchrone**. Axios simplifie les appels vers notre API en gérant les promesses et les intercepteurs pour les
+erreurs, ce qui améliore la fluidité de l'expérience utilisateur (et développeur).
+
+###### Architecture simplifiée de notre application web
+![diagram](images/appdiagram.png)
+
+
+### 2 - Backend
+
+##### Concernant Docker
+
+Comme nous utilisons Docker, nous avons créé un Dockerfile pour cette partie.
+Comme c'est un environnement isolé, nous devons installer les packages python nécessaires.
+La méthode classique est d'utiliser un requirements.txt. Cependant, une approche plus professionnelle est d'utiliser un 
+Pipfile. C'est donc ce que nous avons fait. Nous installons donc nos dépendances grâce pipenv et notre Pipfile/Pipfile.lock
+
+###### Dockerfile
+![backend Dockerfile](images/backend_Dockerfile.png)
+
+##### Concernant le code
+
+Premièrement, si le projet est actuellement en train de fonctionner dans Docker, vous pouvez cliquer ici
+**<a href="http://localhost:5000/docs">lien FastAPI docs<a/>** pour voir tous les **endpoints** créés. Vous verrez également
+lesquels sont sécurisés à l'aide du symbol cadena.
+
+Nous rappelons qu'une bonne pratique en programmation consiste à créer un code modulaire afin de faciliter le débogage, 
+de limiter les dépendances entre les différentes parties du code et de favoriser une approche évolutive.
+Nous avons ainsi décidé de suivre le découpage utilisé dans le cours :
+
+
+###### Structure du dossier backend
+````bash
+C:.
+├───api
+│   ├───models
+│   │   └───__pycache__
+│   ├───routes
+│   │   └───__pycache__
+│   ├───schemas
+│   │   └───__pycache__
+│   ├───services
+│   │   └───__pycache__
+│   └───__pycache__
+├───tests
+└───__pycache__
+````
+
+Chaque dossier comprend ses fichiers python user, post, etc. De cette manière, si l'on veut uniquement changer une route
+de notre API user, on se rend dans le dossier routes puis dans le fichier user.py.
+
+Ici l'intérêt n'étant pas de faire un cours, nous vous invitons à regarder les codes directement pour plus de détails.
+
+### 3 - Frontend
+
+##### Concernant Docker
+
+Nous avons également créé un Dockerfile pour le frontend.
+Comme c'est toujours un environnement isolé, nous devons une fois encore installer les packages nécessaires.
+Merci à **Dhruv Patel** pour son tutoriel **<a href="https://thedkpatel.medium.com/dockerizing-react-application-built-with-vite-a-simple-guide-4c41eb09defa" target="_blank">
+Dockerizing React Application Built with Vite : A Simple Guide</a>**.
+
+
+###### Dockerfile
+![backend Dockerfile](images/frontend_Dockerfile.png)
+
+##### Concernant le code
+
+La structure des dossiers de l'application React est conçue pour organiser le code de manière claire et modulaire. Le
+dossier public contient les fichiers statiques accessibles par le navigateur, comme les images. Dans src, on trouve les
+sous-dossiers : APIServices pour les appels API, assets pour les ressources comme les CSS, components pour les
+composants réutilisables (comme un Loader, etc), layout qui a un fichier base et qui comme son nom l'indique sert de
+base aux différentes pages (par exemple, on trouve le footer et la navbar sur toutes les pages) diminuant ainsi la
+duplication de code, et pages pour les différentes pages. Enfin, type est utilisé pour les types TypeScript (User, Post, etc). 
+Cette organisation facilite la gestion du code, le rend évolutif et permet une réutilisation optimale des différentes 
+parties de l'application.
+
+###### Structure du dossier frontend
+````bash
+C:.
+├───public
+└───src
+    ├───APIServices
+    ├───assets
+    │   └───css
+    ├───components
+    ├───layout
+    ├───pages
+    └───type
+````
+
+On ne s'attardera pas non plus sur les codes. Cependant, voici l'App.tsx
+
+###### Extrait de code d'App.tsx
+![backend Dockerfile](images/appreact.png)
+
+On voit que l'on a protégé l'accès aux différentes pages, vous devez vous connecter ou vous s'inscrire pour y accéder.
+
+
+
+### 4 - Continuer le projet
 
 <hr>
 
