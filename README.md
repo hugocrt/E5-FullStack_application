@@ -50,8 +50,8 @@ accent particulier sur la gestion des données, la conception d'API sécurisée 
 4) [Continuer le projet](#4---continuer-le-projet)
 
 ### Contexte et Retours d'expérience
-1) [Pourquoi ce projet](#1-logique-du-projet) 
-2) [Difficultés rencontrées](#1-logique-du-projet) 
+1) [Pourquoi ce projet](#1---pourquoi-ce-projet) 
+2) [Difficultés rencontrées](#2---difficultés-rencontrées) 
 
 <hr>
 
@@ -204,7 +204,7 @@ Bearer et JWT pour leur simplicité et la rapidité de leur implémentation.
 En termes de sécurité, d'autres améliorations pourraient être apportées. Par exemple, déployer l’application avec le
 protocole **HTTPS** garantirait que les identifiants et mots de passe ne soient pas envoyés en clair, limitant ainsi le
 risque d’interception. Nous avons néanmoins sécurisé les mots de passe en les hachant et en les salant dans la base de
-données avec le module **CryptContext** de **passlib.context**. De plus, il est important de noter que le stockage de l'ID de
+données avec le module **CryptContext** de **passlib.context**. De plus, il est important de noter qu'enregistrer de l'ID de
 session **SSO** dans le stockage de session du navigateur est un point faible potentiel, car des attaquants pourraient
 récupérer cet ID en cas de **faille XSS**.
 
@@ -322,10 +322,65 @@ On ne s'attardera pas non plus sur les codes. Cependant, voici l'App.tsx
 
 On voit que l'on a protégé l'accès aux différentes pages, vous devez vous connecter ou vous s'inscrire pour y accéder.
 
-
-
 ### 4 - Continuer le projet
+
+Comme mentionné plus tôt, il y a plusieurs axes d'amélioration possibles, notamment en termes de sécurité. Par exemple,
+il serait important de mettre en place HTTPS pour sécuriser les communications et éviter que des informations sensibles
+comme les identifiants ou mots de passe soient envoyées en clair. De plus, il serait préférable de ne pas stocker le
+token SSO dans la session storage, car cela pourrait représenter un risque de sécurité.
+
+Côté interface utilisateur, on pourrait prévoir des améliorations comme le recadrage des images et d’autres
+transformations pour optimiser leur affichage. 
+On pourrait également mettre en place un système de notification : nouvelle publication, abonnement....
+
+Enfin, il existe plein de fonctionnalités intéressantes qu’on pourrait ajouter, inspirées de ce qu’on trouve sur les
+grandes plateformes sociales. Par exemple, un système de recommandations de publications qui suggérerait des contenus en
+fonction des préférences des utilisateurs, de leur activité ou de leur historique. Cela ajouterait une dimension plus
+interactive et personnalisée à l’application.
+
+**Bon code ٩(^ᴗ^)۶**
 
 <hr>
 
 ## Contexte et Retours d'expérience
+
+Voici les consignes du projet :
+
+````text
+Vous devez fournir un readme expliquant le sujet choisi, les difficultés rencontrées ainsi qu’une petite explication sur le lancement de 
+l’application.
+ 
+Critères d’évaluation :
+ 
+Le projet doit se lancer intégralement avec docker compose
+Le projet doit contenir au moins deux services.
+Une API écrite en python avec FastAPI
+Une base de données Postgresql
+La base de données contiendra une table User
+Un système d’authentification devra être mis en place
+Soit un simple système comme vu en cours
+Récupération d’un JWT à l’aide d’un username / password
+Soit avec le système d’authentification Keycloak
+Au moins un endpoint d’API sécurisé à l’aide d’une authentification JWT
+````
+
+### 1 - Pourquoi ce projet
+
+Nous avons rapidement opté pour un **réseau social**, car ce choix répondait parfaitement aux contraintes du projet tout en
+nous permettant de travailler sur un cas concret et actuel. Ce type de projet exige une attention particulière à
+l'**interface utilisateur**, ce qui nous a poussés à réfléchir à l’**ergonomie** et à l’**interactivité** de l’application. De plus,
+nous voulions nous concentrer sur la construction d'une application fullstack complète, et non sur la récupération de
+données en ligne, car c’est un aspect que nous avions déjà abordé l’année dernière.
+
+### 2 - Difficultés rencontrées
+
+Sur le plan technique, quelques difficultés se sont présentées. Comme mentionné, la gestion des images a été un défi,
+car le choix de les encoder en base64 n’était pas idéal. Un autre défi majeur a été notre **découverte** de **React** et du
+**TypeScript**, que nous utilisions pour la première fois. Bien que ce soit notre première expérience avec ces technologies,
+nos bases en programmation, acquises dans d'autres langages comme en **Java** et en **C**, nous ont bien aidés à les appréhender.
+
+Cela dit, nous sommes conscients que notre code pourrait ne pas respecter toutes les conventions de ces outils, étant
+donné que nous les avons appris en autodidactes dans un délai limité. Malgré cela, cette expérience a été très
+enrichissante et a considérablement renforcé notre compréhension du développement d’une application web (voire mobile).
+
+Merci du temps que vous avez consacré à cette lecture.
