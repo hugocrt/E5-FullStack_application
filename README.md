@@ -59,14 +59,9 @@ accent particulier sur la gestion des données, la conception d'API sécurisée 
 
 ### 1 - Avant tout
 
-Dans un premier temps, regardons ce que vous devez installer pour récupérer et utiliser 
+Dans un premier temps, vous devez installer 
+**<a href="https://www.docker.com/products/docker-desktop/" target="_blank">DockerDesktop</a>** pour faire fonctionner 
 le projet.
-
-Deux outils sont nécessaires :
-1) **<a href="https://git-scm.com/download" target="_blank">Git</a>** pour cloner le 
-   projet depuis le dépôt opensource GitHub.
-2) **<a href="https://www.docker.com/products/docker-desktop/" target="_blank">DockerDesktop</a>**
-pour faire fonctionner le projet.
 
 Faites une installation classique.
 
@@ -75,36 +70,26 @@ Faites une installation classique.
 Dans cette partie, nous allons importer le projet disponible sur **GitHub** afin de l’avoir 
 sur votre machine (en local).
 
-Pour ce faire, ouvrez le **Git Bash** (vous pouvez le chercher depuis la barre
-de recherche de votre système d'exploitation) et rendez-vous dans le dossier où vous désirez stocker
-le projet grâce à la commande :
-```bash 
-$ cd <répertoire désiré>/
-```
-Lorsque vous êtes dans le dossier voulu, rentrez la commande suivante toujours dans **Git Bash** :
-```bash 
-$ git clone https://github.com/hugocrt/E5-FullStack_application
-```
-⚠ Attendez l'importation totale du projet
-
+Pour ce faire, cliquez sur ce 
+**<a href="https://github.com/hugocrt/E5-FullStack_application/archive/refs/heads/main.zip" target="_blank">lien</a>**
 
 ### 3 - Lancer le projet
 
-Commencez par rejoindre le dossier du projet :
-```bash 
-$ cd E5-FullStack_application/
-```
-
-Une fois que vous êtes bien dans ce répertoire, veuillez lancer l'application docker (e.g. **DockerDesktop** sur Windows).
+Tout d'abord, veuillez lancer l'application docker (e.g. **DockerDesktop** sur Windows).
 Elle doit être en fonctionnement pour continuer.
 
-Pour exécuter le projet, il suffit de rentrer la commande suivante dans le **GitBash**.
+Rejoignez le dossier du projet dans un terminal à l'aide de la commande suivante :
+```bash 
+$ cd <sous-répertoire ciblé>/
+```
+
+Une fois que vous êtes bien dans le répertoire *E5-FullStack_application*, rentrez la commande suivante :
 ```bash 
 $ docker compose up -d
 ```
 
 Patientez jusqu'à ce que vous voyiez un groupe de conteneurs apparaître dans votre 
-application **docker**. Cela peut prendre une à plusieurs minutes selon votre connexion internet.<br>
+application **docker**. Cela peut prendre une à plusieurs minutes selon votre connexion internet. (~5min) <br>
 
 ⚠ Veillez à ne pas arrêter les services pour le bon fonctionnement de l'application Web.<br><br>
 Une fois le service **frontend** en vert, vous pouvez cliquer sur le port souligné en bleu 
@@ -333,7 +318,7 @@ Côté interface utilisateur, on pourrait prévoir des améliorations comme le r
 transformations pour optimiser leur affichage. 
 On pourrait également mettre en place un système de notification : nouvelle publication, abonnement....
 
-Enfin, il existe plein de fonctionnalités intéressantes qu’on pourrait ajouter, inspirées de ce qu’on trouve sur les
+Enfin, il existe plein de fonctionnalités intéressantes que l'on pourrait ajouter, inspirées de ce qu’on trouve sur les
 grandes plateformes sociales. Par exemple, un système de recommandations de publications qui suggérerait des contenus en
 fonction des préférences des utilisateurs, de leur activité ou de leur historique. Cela ajouterait une dimension plus
 interactive et personnalisée à l’application.
@@ -374,10 +359,10 @@ données en ligne, car c’est un aspect que nous avions déjà abordé l’ann�
 
 ### 2 - Difficultés rencontrées
 
-Sur le plan technique, quelques difficultés se sont présentées. Comme mentionné, la gestion des images a été un défi,
+Sur le plan technique, quelques difficultés se sont présentées. Comme mentionnée, la gestion des images a été un défi,
 car le choix de les encoder en base64 n’était pas idéal. Un autre défi majeur a été notre **découverte** de **React** et du
 **TypeScript**, que nous utilisions pour la première fois. Bien que ce soit notre première expérience avec ces technologies,
-nos bases en programmation, acquises dans d'autres langages comme en **Java** et en **C**, nous ont bien aidés à les appréhender.
+nos bases en programmation, acquises dans d'autres langages comme en **Java** et en **C**, nous ont bien aidées à les appréhender.
 
 Cela dit, nous sommes conscients que notre code pourrait ne pas respecter toutes les conventions de ces outils, étant
 donné que nous les avons appris en autodidactes dans un délai limité. Malgré cela, cette expérience a été très
